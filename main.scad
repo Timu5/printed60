@@ -30,3 +30,6 @@ offset = [
 top_layer(15, 5, layout, offset);
 
 middle_layer(15, 5, layout, offset);
+
+color([0.25,0.25,0.25])
+   border(15, 5, 2, 20);
