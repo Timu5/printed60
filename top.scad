@@ -9,10 +9,10 @@ module top_plate(w, h) {
     total_width = space*w + edge;
     total_height = space*h + edge;
     translate([total_width / 2 - (space+edge) /2, -total_height/2 + (space+edge) /2,0])
-    cube([total_width, total_height, 1.5], center = true);
+        cube([total_width, total_height, 1.5], center = true);
 }
 
-module top_layer(w, h, layout, offset) {
+module top_layer(w, h, layout, offset, holes) {
     difference() {
         top_plate(15, 5);
 
@@ -24,6 +24,10 @@ module top_layer(w, h, layout, offset) {
                 offset = offsets[i] - 1;
                 top_holes(offset * space, -j * space, key);
             }
+        }
+        for(i = [0: len(holes) - 1]) {
+            h = holes[i];
+            hole(h[0], h[1]);
         }
     }
 }

@@ -14,18 +14,30 @@ module middle_plate(w, h) {
         top_plate(w, h);
 }
 
-module middle_layer(w, h, layout, offset) {
-    difference() {
-        middle_plate(15, 5);
+module middle_layer(w, h, layout, offset, holes) {
+     difference() {
+        union() {
+            difference() {
+                middle_plate(15, 5);
 
-        for(j = [0: len(layout)-1]){
-            row = layout[j];
-            offsets = offset[j];
-            for(i = [0: len(row) - 1]) {
-                key = row[i];
-                offset = offsets[i] - 1;
-                middle_holes(offset * space, -j * space, key);
+                for(j = [0: len(layout)-1]){
+                    row = layout[j];
+                    offsets = offset[j];
+                    for(i = [0: len(row) - 1]) {
+                        key = row[i];
+                        offset = offsets[i] - 1;
+                        middle_holes(offset * space, -j * space, key);
+                    }
+                }
             }
+            for(i = [0: len(holes) - 1]) {
+                h = holes[i];
+                hole_body(h[0], h[1]);
+            }
+        }
+        for(i = [0: len(holes) - 1]) {
+            h = holes[i];
+            hole(h[0], h[1]);
         }
     }
 }
